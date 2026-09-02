@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Portfolio of a B.Tech student building embedded systems, custom PCBs, wireless devices, and software." />
+  <title>Your Name — Hardware & Software Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="noise"></div>
+  <header class="nav-wrap">
+    <nav class="nav container">
+      <a class="logo" href="#home">RB<span>.</span></a>
+      <div class="nav-links">
+        <a href="#work">Projects</a>
+        <a href="#skills">Skills</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <a class="nav-cta" href="#contact">Let's talk <span>↗</span></a>
+      <button class="menu-btn" aria-label="Open menu">☰</button>
+    </nav>
+  </header>
+
+  <main>
+    <section id="home" class="hero container">
+      <div class="hero-copy reveal">
+        <div class="eyebrow"><span class="pulse"></span> B.Tech · First Year · Builder</div>
+        <h1>I build ideas<br><span>into hardware.</span></h1>
+        <p class="hero-text">Embedded systems, custom PCBs, wireless devices and software — designed and programmed from the ground up.</p>
+        <div class="hero-actions">
+          <a class="btn primary" href="#work">Explore my work <span>↓</span></a>
+          <a class="btn secondary" href="#contact">Get in touch</a>
+        </div>
+        <div class="hero-stats">
+          <div><strong>STM32</strong><span>Embedded</span></div>
+          <div><strong>ESP32</strong><span>Wireless</span></div>
+          <div><strong>C/C++</strong><span>Firmware</span></div>
+          <div><strong>Python</strong><span>Software</span></div>
+        </div>
+      </div>
+
+      <div class="hero-visual reveal">
+        <div class="orb orb-a"></div><div class="orb orb-b"></div>
+        <div class="pcb-card">
+          <div class="pcb-top"><span>SYS_01</span><span>ONLINE</span></div>
+          <div class="circuit">
+            <span class="chip chip-main">STM32</span>
+            <span class="chip chip-small">ESP32</span>
+            <i class="trace t1"></i><i class="trace t2"></i><i class="trace t3"></i><i class="trace t4"></i>
+            <i class="node n1"></i><i class="node n2"></i><i class="node n3"></i><i class="node n4"></i>
+          </div>
+          <div class="pcb-bottom"><span>HARDWARE / SOFTWARE</span><span>01—07</span></div>
+        </div>
+        <div class="floating-tag tag-1">CUSTOM PCB</div>
+        <div class="floating-tag tag-2">WIRELESS</div>
+      </div>
+    </section>
+
+    <section class="marquee"><div class="marquee-track"><span>EMBEDDED SYSTEMS</span><b>✦</b><span>PCB DESIGN</span><b>✦</b><span>WIRELESS</span><b>✦</b><span>SOFTWARE</span><b>✦</b><span>EMBEDDED SYSTEMS</span><b>✦</b><span>PCB DESIGN</span><b>✦</b><span>WIRELESS</span><b>✦</b><span>SOFTWARE</span></div></section>
+
+    <section id="work" class="section container">
+      <div class="section-head reveal"><div><p class="label">01 / SELECTED WORK</p><h2>Things I've built.</h2></div><p class="section-intro">I don't just prototype ideas. I design the electronics, write the firmware, and connect the whole system.</p></div>
+
+      <div class="project-grid">
+        <article class="project featured reveal">
+          <div class="project-visual drone"><div class="project-number">01</div><div class="drone-shape"><span></span><span></span><span></span><span></span><b>✦</b></div><div class="visual-caption">CUSTOM DRONE + CONTROLLER</div></div>
+          <div class="project-info"><div class="project-kicker">01 · EMBEDDED / WIRELESS</div><h3>Custom Drone & Controller</h3><p>Designed and built my own drone and wireless controller, including the electronic systems and embedded programming required to operate them.</p><div class="tags"><span>STM32</span><span>ESP32</span><span>C/C++</span><span>PCB</span></div></div>
+        </article>
+
+        <article class="project reveal">
+          <div class="project-visual car"><div class="project-number">02</div><div class="car-art"><div class="car-body"></div><div class="wheel w1"></div><div class="wheel w2"></div></div><div class="visual-caption">CUSTOM RC PLATFORM</div></div>
+          <div class="project-info"><div class="project-kicker">02 · EMBEDDED / CONTROL</div><h3>Custom RC Car</h3><p>A custom RC car with my own electronics and wireless control system, programmed from the ground up.</p><div class="tags"><span>Microcontrollers</span><span>Arduino</span><span>Wireless</span></div></div>
+        </article>
+
+        <article class="project reveal">
+          <div class="project-visual security"><div class="project-number">03</div><div class="camera-art"><div class="lens"></div></div><div class="signal"><i></i><i></i><i></i></div><div class="visual-caption">WIRELESS HOME SECURITY</div></div>
+          <div class="project-info"><div class="project-kicker">03 · IOT / SECURITY</div><h3>Wireless Home Security</h3><p>Built a wireless home security system with camera, microphone, physical buttons and multiple controls.</p><div class="tags"><span>ESP32</span><span>Camera</span><span>Audio</span><span>Wireless</span></div></div>
+        </article>
+
+        <article class="project reveal">
+          <div class="project-visual plant"><div class="project-number">04</div><div class="plant-art"><div class="leaf l1"></div><div class="leaf l2"></div><div class="stem"></div><div class="soil"></div></div><div class="visual-caption">AUTOMATED IRRIGATION</div></div>
+          <div class="project-info"><div class="project-kicker">04 · AUTOMATION</div><h3>Automated Irrigation</h3><p>An embedded irrigation system combining sensing, control logic and hardware to automate watering.</p><div class="tags"><span>Sensors</span><span>C/C++</span><span>Arduino</span><span>PCB</span></div></div>
+        </article>
+
+        <article class="project reveal">
+          <div class="project-visual house"><div class="project-number">05</div><div class="house-art"><div class="roof"></div><div class="home-body"></div><div class="window"></div><div class="door"></div><div class="lock">⌑</div></div><div class="visual-caption">HOUSE SAFETY AUTOMATION</div></div>
+          <div class="project-info"><div class="project-kicker">05 · AUTOMATION / WIRELESS</div><h3>House Safety Automation</h3><p>A custom electronic system for automating household safety functions with integrated controls.</p><div class="tags"><span>STM32</span><span>ESP32</span><span>Wireless</span><span>PCB</span></div></div>
+        </article>
+
+        <article class="project reveal">
+          <div class="project-visual audio"><div class="project-number">06</div><div class="speaker-art"><div class="disc d1"></div><div class="disc d2"></div><div class="disc d3"></div><div class="rfid">RFID</div></div><div class="visual-caption">WIRELESS RFID AUDIO</div></div>
+          <div class="project-info"><div class="project-kicker">06 · AUDIO / RFID</div><h3>Wireless RFID Sound System</h3><p>A Beosound 9000-inspired wireless sound system with my own implementation and RFID-based interaction.</p><div class="tags"><span>RFID</span><span>Audio</span><span>Wireless</span><span>PCB</span></div></div>
+        </article>
+
+        <article class="project wide reveal">
+          <div class="project-visual armbar"><div class="project-number">07</div><div class="armbar-art"><div class="screen">ARM<span>BAR</span><small>SYSTEM READY</small></div><div class="keys">◼ ◼ ◼ ◼ ◼</div></div><div class="visual-caption">PERSONAL COMPUTING DEVICE</div></div>
+          <div class="project-info"><div class="project-kicker">07 · EMBEDDED / COMPUTING</div><h3>Armbar</h3><p>A custom hardware device designed as an alternative interface for phones and many everyday PC functions.</p><div class="tags"><span>Embedded</span><span>MicroPython</span><span>C/C++</span><span>Custom PCB</span></div></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="skills" class="section skills-section">
+      <div class="container">
+        <div class="section-head reveal"><div><p class="label">02 / TOOLBOX</p><h2>My stack.</h2></div><p class="section-intro">The tools I use to turn an idea into a functioning system.</p></div>
+        <div class="skills-layout">
+          <div class="skill-block reveal"><span class="skill-index">01</span><h3>Languages</h3><p>C · C++ · Python · MicroPython · Arduino</p></div>
+          <div class="skill-block reveal"><span class="skill-index">02</span><h3>Microcontrollers</h3><p>STM32 · ESP32 · ATmega</p></div>
+          <div class="skill-block reveal"><span class="skill-index">03</span><h3>Hardware</h3><p>Custom PCB design · Electronics · Sensors · RFID · Audio · Camera · Wireless systems</p></div>
+          <div class="skill-block reveal"><span class="skill-index">04</span><h3>Software</h3><p>Python Windows applications · Node.js · Backend development · Web development</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="section container about-section">
+      <div class="about-copy reveal"><p class="label">03 / ABOUT</p><h2>Build the whole thing.</h2><p>I like understanding how every layer of a product works — from the circuit on the PCB to the firmware running on the microcontroller and the software talking to it.</p><p>Every project in this portfolio was programmed by me. My focus is practical: learn a technology, put it into a real system, and make the system work.</p></div>
+      <div class="about-panel reveal"><div class="panel-line"><span>EDUCATION</span><strong>B.Tech · First Year</strong></div><div class="panel-line"><span>FOCUS</span><strong>Embedded Systems</strong></div><div class="panel-line"><span>BUILD MODE</span><strong>Hardware + Software</strong></div><div class="panel-line"><span>CURRENTLY</span><strong>Making things.</strong></div></div>
+    </section>
+
+    <section id="contact" class="contact container reveal">
+      <p class="label">04 / CONTACT</p><h2>Have an idea?<br><span>Let's build it.</span></h2>
+      <div class="contact-links"><a href="mailto:gboy75576@gamil.com">gboy75576@gmail.com <span>↗</span></a><a href="https://github.com/Rishiprohai" target="_blank" rel="noreferrer">GitHub <span>↗</span></a><a href="https://www.linkedin.com/in/rishi-batra-790ba4252" target="_blank" rel="noreferrer">LinkedIn <span>↗</span></a></div>
+    </section>
+  </main>
+
+  <footer class="footer container"><span>© <span id="year"></span> Your Name</span><span>Designed & built from scratch.</span></footer>
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,646 @@
+JavaScript Code Explanation — Design & Functionality
+
+Your JavaScript is essentially doing 4 things:
+
+1. Making the mobile menu work
+2. Automatically changing the copyright year
+3. Making sections animate into view while scrolling
+4. Making the PCB graphic react to your mouse
+
+
+1. Getting elements from your HTML
+
+const menuBtn = document.querySelector(".menu-btn");
+const navLinks = document.querySelector(".nav-links");
+
+JavaScript looks through your HTML for the element with the class "menu-btn" and stores it inside menuBtn.
+
+It does the same for ".nav-links".
+
+Think of it as:
+
+HTML
+ ↓
+<button class="menu-btn">
+ ↓
+JavaScript finds it
+ ↓
+menuBtn
+
+And:
+
+HTML
+ ↓
+<div class="nav-links">
+ ↓
+JavaScript finds it
+ ↓
+navLinks
+
+
+2. Opening the mobile menu
+
+menuBtn?.addEventListener("click", () => {
+    navLinks.classList.toggle("open");
+});
+
+addEventListener means:
+
+"Wait for something to happen."
+
+Here, it waits for a "click" on the menu button.
+
+When you click it:
+
+navLinks.classList.toggle("open");
+
+adds or removes the CSS class "open".
+
+Before clicking:
+
+<div class="nav-links">
+
+After clicking:
+
+<div class="nav-links open">
+
+Then your CSS takes over.
+
+Your CSS has:
+
+.nav-links.open {
+    display: flex;
+}
+
+Therefore:
+
+CLICK
+  ↓
+JS adds "open"
+  ↓
+CSS sees ".nav-links.open"
+  ↓
+MENU APPEARS
+
+Click again:
+
+CLICK
+  ↓
+JS removes "open"
+  ↓
+CSS no longer matches ".nav-links.open"
+  ↓
+MENU DISAPPEARS
+
+That's what toggle() does.
+
+It basically means:
+
+if open → close
+if closed → open
+
+
+3. Why is there a "?"
+
+You have:
+
+menuBtn?.addEventListener(...)
+
+The ?. is optional chaining.
+
+It protects the website if the element doesn't exist.
+
+Without it, trying to add an event listener to something that doesn't exist could cause an error.
+
+With it, JavaScript basically says:
+
+"If menuBtn exists, do this. Otherwise, skip it."
+
+
+4. Closing the mobile menu when a link is clicked
+
+navLinks
+    ?.querySelectorAll("a")
+    .forEach((link) => {
+        link.addEventListener("click", () => {
+            navLinks.classList.remove("open");
+        });
+    });
+
+Your navigation contains links such as:
+
+<a href="#work">Projects</a>
+<a href="#skills">Skills</a>
+<a href="#about">About</a>
+<a href="#contact">Contact</a>
+
+JavaScript finds all of those links:
+
+querySelectorAll("a")
+
+Then:
+
+.forEach((link) => {
+
+means:
+
+"Do the following for every link."
+
+Each link gets a click listener.
+
+When you click "Projects", for example:
+
+navLinks.classList.remove("open");
+
+So:
+
+Mobile menu open
+       ↓
+click Projects
+       ↓
+scroll to Projects
+       ↓
+remove "open"
+       ↓
+menu closes
+
+Without this, the menu could remain open after selecting a section.
+
+
+5. Automatic year
+
+const year = document.getElementById("year");
+
+This finds:
+
+<span id="year"></span>
+
+Then:
+
+if (year) {
+    year.textContent = new Date().getFullYear();
+}
+
+JavaScript gets the current year.
+
+For example:
+
+2026
+
+and puts it into the HTML:
+
+<span id="year">2026</span>
+
+So you don't have to manually update your footer every year.
+
+
+6. The scroll animations
+
+This is the most interesting part:
+
+const observer = new IntersectionObserver(...)
+
+The browser has a built-in feature called IntersectionObserver.
+
+Its job is basically:
+
+"Tell me when an element enters the screen."
+
+Imagine your projects are way down the page:
+
+SCREEN
+┌──────────────────┐
+│                  │
+│                  │
+└──────────────────┘
+
+       ↓ scroll
+
+PROJECT
+┌──────────────────┐
+│ Drone            │
+└──────────────────┘
+
+JavaScript can detect when the project becomes visible.
+
+
+7. What does "entries" mean?
+
+Inside:
+
+(entries) => {
+
+"entries" contains information about the elements being observed.
+
+Then:
+
+entries.forEach((entry) => {
+
+means:
+
+"Check each observed element."
+
+Then:
+
+if (entry.isIntersecting)
+
+means:
+
+"Is this element currently inside the visible part of the browser?"
+
+If yes:
+
+entry.target.classList.add("visible");
+
+This is where JS communicates with your CSS.
+
+Your HTML initially has:
+
+class="project reveal"
+
+JavaScript changes it to:
+
+class="project reveal visible"
+
+Then your CSS has:
+
+.reveal {
+    opacity: 0;
+    transform: translateY(25px);
+}
+
+and:
+
+.reveal.visible {
+    opacity: 1;
+    transform: none;
+}
+
+So the complete system is:
+
+HTML
+class="reveal"
+      ↓
+CSS
+opacity: 0
+      ↓
+USER SCROLLS
+      ↓
+JavaScript detects element
+      ↓
+JS adds "visible"
+      ↓
+CSS
+opacity: 1
+      ↓
+FADE-IN
+
+
+8. Why threshold: 0.1?
+
+You have:
+
+{
+    threshold: 0.1
+}
+
+This tells the observer:
+
+"Trigger when approximately 10% of the element is visible."
+
+So it doesn't wait until the entire project card is on screen.
+
+Something like:
+
+┌──────────────────┐
+│                  │
+│      10%         │ ← trigger
+└──────────────────┘
+
+Then the animation starts.
+
+
+9. Why unobserve()?
+
+You have:
+
+observer.unobserve(entry.target);
+
+This tells JavaScript:
+
+"I've already animated this element. Stop watching it."
+
+That's intentional.
+
+Otherwise:
+
+scroll down → animate
+scroll up   → animate again
+scroll down → animate again
+scroll up   → animate again
+
+could happen repeatedly.
+
+Instead:
+
+scroll down
+    ↓
+animate
+    ↓
+stop observing
+
+So each element reveals itself once.
+
+
+10. Applying the observer to everything
+
+document
+    .querySelectorAll(".reveal")
+    .forEach((el) => observer.observe(el));
+
+This finds every element with:
+
+.reveal
+
+For example:
+
+<section class="project reveal">
+
+<section class="skill-block reveal">
+
+<section class="about reveal">
+
+Then it tells the observer:
+
+"Watch all of these."
+
+That's why you don't need to individually write JavaScript for every project.
+
+
+11. The PCB mouse interaction
+
+Now we get to the interactive hero.
+
+First:
+
+const heroVisual = document.querySelector(".hero-visual");
+
+gets:
+
+<div class="hero-visual">
+
+Then:
+
+const card = document.querySelector(".pcb-card");
+
+gets:
+
+<div class="pcb-card">
+
+So now JavaScript knows:
+
+heroVisual → area containing PCB
+card       → PCB itself
+
+
+12. Detecting mouse movement
+
+heroVisual?.addEventListener("mousemove", (e) => {
+
+This says:
+
+"Every time the mouse moves over the hero visual, run this function."
+
+The "e" is the mouse event.
+
+It contains information such as:
+
+mouse X position
+mouse Y position
+
+
+13. Finding where the hero is
+
+const r = heroVisual.getBoundingClientRect();
+
+This gets the hero visual's dimensions and position.
+
+Conceptually:
+
+┌──────────────────────────────┐
+│                              │
+│        HERO VISUAL            │
+│                              │
+└──────────────────────────────┘
+ ↑                            ↑
+left                         right
+
+JavaScript now knows:
+
+r.left
+r.top
+r.width
+r.height
+
+
+14. Calculating mouse position
+
+This part:
+
+const x =
+    (e.clientX - r.left - r.width / 2) /
+    r.width;
+
+calculates where the mouse is horizontally relative to the center.
+
+Imagine the hero is:
+
+┌──────────────────────────────┐
+│              │               │
+│      LEFT    │     RIGHT     │
+│              │               │
+└──────────────────────────────┘
+               ↑
+             CENTER
+
+If the mouse is on the left:
+
+x = negative
+
+Center:
+
+x = approximately 0
+
+Right:
+
+x = positive
+
+The exact values are kept small because we're dividing by the width.
+
+The same happens vertically:
+
+const y =
+    (e.clientY - r.top - r.height / 2) /
+    r.height;
+
+So now we essentially have:
+
+             TOP
+              ↑
+              |
+LEFT ←────── x/y ──────→ RIGHT
+              |
+              ↓
+            BOTTOM
+
+
+15. Actually moving the PCB
+
+Now:
+
+card.style.transform = `
+    rotate(-7deg)
+    rotateX(${y * -5}deg)
+    rotateY(${x * 7}deg)
+    translate(${x * 8}px, ${y * 8}px)
+`;
+
+This changes the PCB's CSS transform dynamically.
+
+Normally the PCB has:
+
+transform: rotate(-7deg);
+
+So it's already tilted slightly.
+
+JavaScript adds more movement based on your mouse.
+
+rotateX(${y * -5}deg)
+
+tilts the PCB vertically.
+
+rotateY(${x * 7}deg)
+
+tilts it horizontally.
+
+translate(${x * 8}px, ${y * 8}px)
+
+actually moves the PCB a few pixels toward the mouse.
+
+So:
+
+Mouse moves
+     ↓
+x/y calculated
+     ↓
+rotation calculated
+     ↓
+translation calculated
+     ↓
+CSS transform updated
+     ↓
+PCB appears to tilt toward mouse
+
+That's the entire 3D effect.
+
+
+16. Why use JavaScript instead of CSS :hover?
+
+Because CSS :hover can basically tell you:
+
+"mouse is hovering"
+
+but it doesn't conveniently tell you:
+
+"mouse is 37px left"
+"mouse is 82px above"
+
+JavaScript can read the exact cursor position.
+
+Therefore we can make the PCB respond differently depending on where your mouse is.
+
+
+17. Resetting the PCB
+
+Finally:
+
+heroVisual?.addEventListener("mouseleave", () => {
+    card.style.transform = "rotate(-7deg)";
+});
+
+mouseleave fires when your mouse leaves the hero area.
+
+So:
+
+Mouse inside
+     ↓
+PCB tilts
+
+Mouse moves around
+     ↓
+PCB follows
+
+Mouse leaves
+     ↓
+PCB returns to
+rotate(-7deg)
+
+
+18. The whole script.js in one diagram
+
+                  script.js
+                      │
+       ┌──────────────┼───────────────┐
+       │              │               │
+       ▼              ▼               ▼
+   MOBILE MENU    SCROLL EFFECT    PCB EFFECT
+       │              │               │
+       ▼              ▼               ▼
+ click ☰         detect element   detect mouse
+       │              │               │
+       ▼              ▼               ▼
+ add/remove       add "visible"    calculate x/y
+ "open" class         │               │
+       │              ▼               ▼
+       ▼          CSS animates     rotate PCB
+ CSS opens menu
+
+
+The important concept to understand is that the JS isn't responsible for the site's visual design.
+
+JavaScript changes the state of the page; CSS decides what that state looks like.
+
+For example:
+
+navLinks.classList.add("open");
+
+doesn't visually create the menu.
+
+It merely says:
+
+"The menu is now OPEN."
+
+Then your CSS decides:
+
+.nav-links.open {
+    display: flex;
+}
+
+Similarly:
+
+entry.target.classList.add("visible");
+
+doesn't create the fade animation.
+
+It says:
+
+"This element is now visible."
+
+Your CSS handles the animation.
+
+
+The key frontend concept:
+
+HTML → what exists
+CSS → how it looks
+JS → what it does
